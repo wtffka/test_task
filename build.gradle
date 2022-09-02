@@ -2,11 +2,16 @@ plugins {
 	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
+	id 'application'
 	id 'org.siouan.frontend-jdk11' version '6.0.0'
 }
 
-group = 'com.example'
+group = 'com.example.test_task'
 version = '0.0.1-SNAPSHOT'
+
+application {
+	mainClass = 'com.TestTaskApplication'
+}
 
 configurations {
 	compileOnly {
@@ -16,6 +21,11 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+compileJava {
+	options.release = 17
+	options.encoding = 'UTF-8'
 }
 
 dependencies {
@@ -61,3 +71,6 @@ installFrontend {
 }
 
 processResources.dependsOn assembleFrontend
+
+task stage(dependsOn: [clean, installDist])
+installDist.mustRunAfter clean

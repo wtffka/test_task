@@ -7,13 +7,13 @@ const ru = {
     goBack: 'Назад',
     toCustomers: 'К абонентам',
     add: 'Добавить',
-    changeFormatNumber: 'Вы действительно хотите изменить формат номера?',
     confirm: 'Подтверждаю',
     edit: 'Изменить',
     delete: 'Удалить',
     welcomePage: 'На главную',
     id: 'ID',
     customerName: 'Имя абонента',
+    changeFormatNumber: 'Изменить формат номера',
     phoneNumber: 'Номер телефона',
     lastDate: 'Дата обновления',
     addRecord: 'Добавить запись',
@@ -22,6 +22,7 @@ const ru = {
     viewRecord: 'Перейти к записи',
     recordAdding: 'Добавление новой записи',
     recordEditing: 'Редактирование записи',
+    dataUpdated: 'Формат номера изменен',
   },
 };
 

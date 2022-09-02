@@ -8,7 +8,6 @@ import {
 import axios from 'axios';
 
 import routes from '../../routes.js';
-import { actions as recordsActions } from '../../slices/recordsSlice.js';
 
 const Record = () => {
   const { t } = useTranslation();
@@ -34,7 +33,6 @@ const Record = () => {
     event.preventDefault();
     try {
       await axios.delete(routes.delete(id));
-      dispatch(recordsActions.removeRecord(id));
       const from = { pathname: routes.recordsPagePath() };
       history.push(from);
     } catch (e) {

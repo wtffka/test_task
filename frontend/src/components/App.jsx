@@ -70,7 +70,6 @@ const App = () => {
           <Route exact path={routes.editRecord(':recordId')}><EditRecord /></Route>
 
           <Route exact path={routes.editRecords()}><EditRecords /></Route>
-
         </Switch>
       </div>
       <footer>

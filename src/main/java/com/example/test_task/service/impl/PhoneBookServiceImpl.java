@@ -49,6 +49,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     }
 
     private List<PhoneBook> updateInfo(List<PhoneBook> records) {
+        if (records.size() == 0) return null;
         if (records.get(0).getPhoneNumber().startsWith("+")) {
             for (PhoneBook record : records) {
                 record.setPhoneNumber(record.getPhoneNumber().replace("+7", "8"));

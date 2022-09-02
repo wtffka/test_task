@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+// import axios from 'axios';
 
 import { selectors } from '../../slices/recordsSlice.js';
 
@@ -13,7 +14,18 @@ import routes from '../../routes.js';
 const Records = () => {
   const { t } = useTranslation();
 
+  // const history = useHistory();
+
   const records = useSelector(selectors.selectAll);
+
+  // const updateRecords = async () => {
+  //   try {
+  //     await axios.put(routes.editAll());
+  //   } catch (e) {
+  //     const from = { pathname: routes.homePagePath() };
+  //     history.push(from);
+  //   }
+  // };
 
   if (!records) {
     return null;
@@ -21,14 +33,14 @@ const Records = () => {
 
   return (
     <>
-      <Button variant="primary" className="btn-sm">
+      <Button variant="primary" className="btn-sm" style={{ height: '50px' }}>
         <Link className="nav-link text-white" to={routes.addRecord()}>
           {t('addRecord')}
         </Link>
       </Button>
-      <Button variant="primary" className="btn-sm" style={{ marginLeft: '160px' }}>
+      <Button variant="primary" className="btn-sm" style={{ marginLeft: '160px', height: '50px' }}>
         <Link className="nav-link text-white" to={routes.editRecords()}>
-          {t('changeView')}
+          {t('changeFormatNumber')}
         </Link>
       </Button>
       <Table>
