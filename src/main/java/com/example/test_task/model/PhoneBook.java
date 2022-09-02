@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
-@Table(schema = "phonebook_schema", name = "phonebook")
+@Table(name = "phonebook")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
