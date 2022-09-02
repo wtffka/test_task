@@ -10,7 +10,7 @@ group = 'com.example.test_task'
 version = '0.0.1-SNAPSHOT'
 
 application {
-	mainClass = 'com.TestTaskApplication'
+	mainClass = 'com.example.test_task.TestTaskApplication'
 }
 
 configurations {
