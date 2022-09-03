@@ -6,6 +6,8 @@ import com.example.test_task.repository.PhoneBookRepository;
 import com.example.test_task.service.PhoneBookService;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -45,6 +47,7 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     private PhoneBook fromPhoneBookDto(PhoneBook recordToDo, PhoneBookDto phoneBookDto) {
         if (phoneBookDto.getCustomerName() != null) recordToDo.setCustomerName(phoneBookDto.getCustomerName());
         if (phoneBookDto.getPhoneNumber() != null) recordToDo.setPhoneNumber(phoneBookDto.getPhoneNumber());
+        if (recordToDo.getTimestamp() != null) recordToDo.setTimestamp(Date.from(Instant.now()));
         return phoneBookRepository.save(recordToDo);
     }
 
