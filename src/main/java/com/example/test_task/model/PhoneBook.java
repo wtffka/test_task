@@ -31,7 +31,7 @@ public class PhoneBook {
 
     private String phoneNumber;
 
-    @UpdateTimestamp
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
