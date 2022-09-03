@@ -1,4 +1,3 @@
-// @ts-check
 import ReactDOM from 'react-dom';
 import init from './init.jsx';
 import './index.scss';

@@ -7,10 +7,6 @@ export const notificationsSlice = createSlice({
   name: 'notify',
   initialState,
   reducers: {
-    addMessages(state, action) {
-      adapter.removeAll(state);
-      adapter.addMany(state, action);
-    },
     addMessage(state, action) {
       adapter.removeAll(state);
       adapter.addOne(state, action);

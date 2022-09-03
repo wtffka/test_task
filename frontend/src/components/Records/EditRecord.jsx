@@ -1,5 +1,3 @@
-// @ts-check
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +9,6 @@ import axios from 'axios';
 
 import routes from '../../routes.js';
 import { actions as recordsActions } from '../../slices/recordsSlice.js';
-import { useNotify } from '../../hooks/index.js';
 
 const getValidationSchema = () => yup.object().shape({});
 
@@ -19,7 +16,6 @@ const EditRecord = () => {
   const { t } = useTranslation();
   const [record, setRecord] = useState(null);
   const params = useParams();
-  const notify = useNotify();
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -43,7 +39,6 @@ const EditRecord = () => {
     },
     validationSchema: getValidationSchema(),
     onSubmit: async (recordData, { setSubmitting, setErrors }) => {
-      try {
         const requestRecord = {
           customerName: recordData.customerName,
           phoneNumber: recordData.phoneNumber,
@@ -52,16 +47,6 @@ const EditRecord = () => {
         dispatch(recordsActions.updateRecord(data));
         const from = { pathname: routes.recordsPagePath() };
         history.push(from);
-      } catch (e) {
-        console.error(e);
-        setSubmitting(false);
-        if (e.response?.status === 422 && Array.isArray(e.response?.data)) {
-          const errors = e.response?.data
-            .reduce((acc, err) => ({ ...acc, [err.field]: err.defaultMessage }), {});
-          setErrors(errors);
-          notify.addError('taskEditFail');
-        }
-      }
     },
     validateOnBlur: false,
     validateOnChange: false,

@@ -23,11 +23,11 @@ const Records = () => {
   }, [dispatch]);
 
   const updateRecords = async () => {
-    await axios.put(routes.editAll());
-    const { data: recordData } = await axios.get(routes.records());
-    setData(recordData);
-    const from = { pathname: routes.recordsPagePath() };
-    history.push(from, { message: 'dataUpdated' });
+      await axios.put(routes.editAll());
+      const {data: recordData} = await axios.get(routes.records());
+      setData(recordData);
+      const from = {pathname: routes.recordsPagePath()};
+      history.push(from, {message: 'dataUpdated'});
   };
 
   if (!data) {
@@ -71,6 +71,11 @@ const Records = () => {
           ))}
         </tbody>
       </Table>
+      <Button variant="secondary" className="btn-sm" style={{ width: '140px', height: '50px', float: 'left' }}>
+        <Link className="nav-link text-white" to={routes.homePagePath()}>
+          {t('welcomePage')}
+        </Link>
+      </Button>
     </>
   );
 };

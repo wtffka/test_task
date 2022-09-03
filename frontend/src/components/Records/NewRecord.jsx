@@ -1,7 +1,5 @@
-// @ts-check
-
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Form, Button } from 'react-bootstrap';
@@ -12,8 +10,6 @@ import axios from 'axios';
 import { actions as recordActions } from '../../slices/recordsSlice.js';
 import routes from '../../routes.js';
 
-import { useNotify } from '../../hooks/index.js';
-
 const getValidationSchema = () => yup.object().shape({});
 
 const NewRecord = () => {
@@ -21,7 +17,6 @@ const NewRecord = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
-  const notify = useNotify();
 
   const f = useFormik({
     initialValues: {
@@ -30,7 +25,6 @@ const NewRecord = () => {
     },
     validationSchema: getValidationSchema(),
     onSubmit: async (recordData, { setSubmitting, setErrors }) => {
-      try {
         const requestRecord = {
           customerName: recordData.customerName,
           phoneNumber: recordData.phoneNumber,
@@ -39,15 +33,6 @@ const NewRecord = () => {
         dispatch(recordActions.addRecord(data));
         const from = { pathname: routes.recordsPagePath() };
         history.push(from);
-      } catch (e) {
-        setSubmitting(false);
-        if (e.response?.status === 422 && Array.isArray(e.response?.data)) {
-          const errors = e.response.data
-            .reduce((acc, err) => ({ ...acc, [err.field]: err.defaultMessage }), {});
-          setErrors(errors);
-          notify.addError('addLocationError');
-        }
-      }
     },
     validateOnBlur: false,
     validateOnChange: false,
@@ -81,8 +66,13 @@ const NewRecord = () => {
             name="phoneNumber"
           />
         </Form.Group>
-        <Button variant="success" type="submit">
+        <Button variant="success" style={{ width: '120px', height: '50px'}} type="submit">
           {t('add')}
+        </Button>
+        <Button variant="secondary" style={{ width: '160px', height: '50px', marginLeft: '220px' }}>
+          <Link className="nav-link text-white" to={routes.recordsPagePath()}>
+            {t('toCustomers')}
+          </Link>
         </Button>
       </Form>
     </>

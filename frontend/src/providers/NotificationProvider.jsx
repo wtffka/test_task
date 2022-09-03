@@ -1,5 +1,3 @@
-// @ts-check
-
 import React, { useEffect } from 'react';
 import {
   useHistory,
@@ -16,23 +14,15 @@ const NotificationProvider = ({ children }) => {
   const clean = () => dispatch(notifyActions.clean());
 
   const messageMapping = {
-    errors(currentErrors) {
-      const errors = currentErrors.map((err) => ({ id: _.uniqueId(), ...err, type: 'danger' }));
-      dispatch(notifyActions.addMessages(errors));
-    },
-    error(currentError) {
-      const error = { id: _.uniqueId(), text: currentError, type: 'danger' };
-      dispatch(notifyActions.addMessage(error));
-    },
     info(text) {
-      const messages = { id: _.uniqueId(), text, type: 'info' };
+      const messages = { id: _.uniqueId(), text, type: 'warning' };
       dispatch(notifyActions.addMessage(messages));
     },
   };
 
   useEffect(() => {
-    history.listen((location) => {
-      const { state } = location;
+    history.listen((record) => {
+      const { state } = record;
       if (!state) {
         dispatch(notifyActions.clean());
         return;
@@ -55,8 +45,6 @@ const NotificationProvider = ({ children }) => {
   return (
     <NotificationContext.Provider value={{
       addMessage: messageMapping.info,
-      addErrors: messageMapping.errors,
-      addError: messageMapping.error,
       clean,
     }}
     >

@@ -1,5 +1,3 @@
-// @ts-check
-
 import path from 'path';
 
 const apiUrl = '/api';

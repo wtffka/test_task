@@ -1,64 +1,22 @@
-// @ts-check
-
-import React, { useEffect, useState } from 'react';
-import {
-  Switch,
-  Route,
-} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
-
-import Notification from './Notification.jsx';
-
-import Navbar from './Navbar.jsx';
-
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import routes from '../routes.js';
 
-import { actions as recordsActions } from '../slices/recordsSlice.js';
-
-import { useNotify } from '../hooks/index.js';
-
 import NewRecord from './Records/NewRecord.jsx';
+import Notification from './Notification.jsx';
 import Records from './Records/Records.jsx';
 import Record from './Records/Record.jsx';
 import EditRecord from './Records/EditRecord.jsx';
+import Welcome from "./Welcome.jsx";
 
 const App = () => {
-  const notify = useNotify();
-  const dispatch = useDispatch();
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const dataRoutes = [
-      {
-        name: 'locations',
-        getData: async () => {
-          const { data } = await axios.get(routes.records());
-          if (!Array.isArray(data)) {
-            notify.addError('Сервер не вернул список пользователей');
-            dispatch(recordsActions.addRecords([]));
-            return;
-          }
-          dispatch(recordsActions.addRecords(data));
-        },
-      },
-    ];
-    const promises = dataRoutes.map(({ getData }) => getData());
-    Promise.all(promises)
-      .finally(() => setLoading(false));
-  });
-
-  if (isLoading) {
-    return null;
-  }
-
   return (
     <>
-      <Navbar />
       <div className="container wrapper flex-grow-1">
         <Notification />
         <h1 className="my-4">{null}</h1>
         <Switch>
+          <Route exact path={routes.homePagePath()} component={Welcome} />
 
           <Route exact path={routes.recordsPagePath()}><Records /></Route>
 
