@@ -1,33 +1,36 @@
-// @ts-check
-
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-// import axios from 'axios';
-
-import { selectors } from '../../slices/recordsSlice.js';
+import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import routes from '../../routes.js';
 
 const Records = () => {
   const { t } = useTranslation();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  // const history = useHistory();
+  const [data, setData] = useState(null);
 
-  const records = useSelector(selectors.selectAll);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: recordData } = await axios.get(routes.records());
+      setData(recordData);
+    };
+    fetchData();
+  }, [dispatch]);
 
-  // const updateRecords = async () => {
-  //   try {
-  //     await axios.put(routes.editAll());
-  //   } catch (e) {
-  //     const from = { pathname: routes.homePagePath() };
-  //     history.push(from);
-  //   }
-  // };
+  const updateRecords = async () => {
+    await axios.put(routes.editAll());
+    const { data: recordData } = await axios.get(routes.records());
+    setData(recordData);
+    const from = { pathname: routes.recordsPagePath() };
+    history.push(from, { message: 'dataUpdated' });
+  };
 
-  if (!records) {
+  if (!data) {
     return null;
   }
 
@@ -38,10 +41,8 @@ const Records = () => {
           {t('addRecord')}
         </Link>
       </Button>
-      <Button variant="primary" className="btn-sm" style={{ marginLeft: '160px', height: '50px' }}>
-        <Link className="nav-link text-white" to={routes.editRecords()}>
-          {t('changeFormatNumber')}
-        </Link>
+      <Button variant="primary" className="btn-sm" style={{ marginLeft: '160px', height: '50px' }} onClick={updateRecords}>
+        {t('changeFormatNumber')}
       </Button>
       <Table>
         <thead>
@@ -53,7 +54,7 @@ const Records = () => {
           </tr>
         </thead>
         <tbody>
-          {records.map((record) => (
+          {data.map((record) => (
             <tr key={record.id}>
               <td>{record.id}</td>
               <td>{record.customerName}</td>

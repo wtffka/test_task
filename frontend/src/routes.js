@@ -20,7 +20,6 @@ const routes = {
   recordPagePath: (id) => `${buildLocalUrl('api/records')()}/${id}`,
   addRecord: () => `${buildLocalUrl('records')()}/new`,
   editRecord: (id) => `${buildLocalUrl('records')()}/${id}/edit`,
-  editRecords: () => `${buildLocalUrl('records')()}/confirm`,
 
   records: buildUrl('records'),
   add: buildUrl('records'),

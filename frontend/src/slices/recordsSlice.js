@@ -12,6 +12,9 @@ export const recordsSlice = createSlice({
     updateRecord(state, { payload }) {
       adapter.updateOne(state, { id: payload.id, changes: payload });
     },
+    updateRecords(state, { payload }) {
+      adapter.updateMany(state, [{ id: payload.id, changes: payload }]);
+    },
     removeRecord: adapter.removeOne,
   },
 });

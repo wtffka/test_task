@@ -22,7 +22,6 @@ import NewRecord from './Records/NewRecord.jsx';
 import Records from './Records/Records.jsx';
 import Record from './Records/Record.jsx';
 import EditRecord from './Records/EditRecord.jsx';
-import EditRecords from './Records/EditRecords.jsx';
 
 const App = () => {
   const notify = useNotify();
@@ -69,7 +68,6 @@ const App = () => {
 
           <Route exact path={routes.editRecord(':recordId')}><EditRecord /></Route>
 
-          <Route exact path={routes.editRecords()}><EditRecords /></Route>
         </Switch>
       </div>
       <footer>
